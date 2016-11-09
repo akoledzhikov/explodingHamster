@@ -16,9 +16,8 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
+			<groupId>com.frisky.hamster</groupId>
+			<artifactId>hamster-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>net.karneim</groupId>

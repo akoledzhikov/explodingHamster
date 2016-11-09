@@ -26,6 +26,28 @@
 
 	<dependencyManagement>
 		<dependencies>
+
+			<dependency>
+				<groupId>com.frisky.hamster</groupId>
+				<artifactId>hamster-api</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.frisky.hamster</groupId>
+				<artifactId>hamster-model</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.frisky.hamster</groupId>
+				<artifactId>hamster-services</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.frisky.hamster</groupId>
+				<artifactId>hamster-web</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			
 			<!-- annotation processor for generating builder classes -->
 			<dependency>
 				<groupId>net.karneim</groupId>

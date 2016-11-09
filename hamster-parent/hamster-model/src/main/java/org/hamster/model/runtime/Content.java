@@ -10,10 +10,10 @@ import javax.persistence.PostUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hamster.api.StorageService;
-import org.hamster.util.ApplicationContextUtil;
-
 import net.karneim.pojobuilder.GeneratePojoBuilder;
+
+import org.hamster.api.StorageService;
+import org.hamster.services.util.ApplicationContextUtil;
 
 @Entity
 @Table(name = "ChallengeContents")
@@ -62,7 +62,7 @@ public class Content {
 	@Transient
 	public byte[] getContent() throws Exception {
 		if (content == null) {
-			content = ApplicationContextUtil.getInstance().getBean(StorageService.class).getContentAsBytes(this);
+			content = ApplicationContextUtil.getInstance().getBean(StorageService.class).getContentAsBytes(id);
 		}
 
 		return content;
@@ -78,7 +78,7 @@ public class Content {
 	@PostUpdate
 	private void storeContentOnFileSystem() throws Exception {
 		if (setContentCalled) {
-			ApplicationContextUtil.getInstance().getBean(StorageService.class).storeContent(this);
+			ApplicationContextUtil.getInstance().getBean(StorageService.class).storeContent(id, content);
 		}
 	}
 
