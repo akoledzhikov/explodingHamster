@@ -2,12 +2,19 @@ package org.hamster.model.runtime;
 
 import java.util.HashMap;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+import net.karneim.pojobuilder.GeneratePojoBuilder;
+
+@Entity
+@Table(name = "RuleInstances")
+@GeneratePojoBuilder(withSetterNamePattern = "*")
 public class RuleInstance {
 
 	@Id

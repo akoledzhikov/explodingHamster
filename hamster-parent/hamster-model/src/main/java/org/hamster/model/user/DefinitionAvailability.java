@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hamster.model.def.Definition;
@@ -21,8 +22,9 @@ public class DefinitionAvailability {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@ManyToOne
 	private User user;
-
+	@ManyToOne
 	private Definition def;
 
 	private Date validUntil;
