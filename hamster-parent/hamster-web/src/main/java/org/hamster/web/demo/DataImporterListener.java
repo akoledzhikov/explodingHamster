@@ -2,19 +2,27 @@ package org.hamster.web.demo;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
 import org.hamster.model.def.Definition;
 import org.hamster.model.def.DefinitionBuilder;
+import org.hamster.model.runtime.ContainerInstance;
+import org.hamster.model.runtime.ContainerInstanceBuilder;
+import org.hamster.model.runtime.RuleInstance;
+import org.hamster.model.runtime.RuleInstanceBuilder;
 import org.hamster.model.user.DefinitionAvailability;
 import org.hamster.model.user.DefinitionAvailabilityBuilder;
 import org.hamster.model.user.User;
 import org.hamster.model.user.UserBuilder;
 import org.hamster.model.user.UserRelation;
+import org.hamster.service.ContainterInstanceServiceImpl;
 import org.hamster.service.DefinitionAvailabilityServiceImpl;
 import org.hamster.service.DefinitionServiceImpl;
+import org.hamster.service.RuleInstanceServiceImpl;
 import org.hamster.service.UserRelationServiceImpl;
 import org.hamster.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +43,12 @@ public class DataImporterListener
 
     @Autowired
     private DefinitionAvailabilityServiceImpl das;
+
+    @Autowired
+    private ContainterInstanceServiceImpl cis;
+
+    @Autowired
+    private RuleInstanceServiceImpl ris;
 
 
     @PostConstruct
@@ -131,11 +145,46 @@ public class DataImporterListener
             }
         }
 
-        // containers
-        // rules
+        ContainerInstance ci1 = new ContainerInstanceBuilder().containerClass("singleInstanceContainer")
+                                                              .build();
+        ContainerInstance ci2 = new ContainerInstanceBuilder().containerClass("singleInstanceContainer")
+                                                              .build();
+        ContainerInstance ci3 = new ContainerInstanceBuilder().containerClass("singleInstanceContainer")
+                                                              .build();
+        ContainerInstance ci4 = new ContainerInstanceBuilder().containerClass("singleInstanceContainer")
+                                                              .build();
+
+        ci1 = cis.save(ci1);
+        ci2 = cis.save(ci2);
+        ci3 = cis.save(ci3);
+        ci4 = cis.save(ci4);
+        List<ContainerInstance> containerInstances = new ArrayList<ContainerInstance>();
+        containerInstances.add(ci1);
+        containerInstances.add(ci2);
+        containerInstances.add(ci3);
+        containerInstances.add(ci4);
+
+        for (ContainerInstance ci : containerInstances)
+        {
+            HashMap<String, Object> votingMap = new HashMap<>();
+            votingMap.put("type", "public");
+            RuleInstance voting = new RuleInstanceBuilder().containerInstance(ci)
+                                                           .ruleClass("voting")
+                                                           .parameters(votingMap)
+                                                           .build();
+            ris.save(voting);
+            
+            HashMap<String, Object> pointsMap = new HashMap<>();
+            pointsMap.put("points", 100);
+            RuleInstance points = new RuleInstanceBuilder().containerInstance(ci)
+                                                           .ruleClass("points")
+                                                           .parameters(pointsMap)
+                                                           .build();
+            ris.save(points);
+        }
+
         // instances
         // content
         // votes
     }
-
 }
