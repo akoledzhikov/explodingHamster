@@ -1,4 +1,4 @@
-package org.hamster.model.container;
+package org.hamster.container;
 
 public class AbstractContainer {
 

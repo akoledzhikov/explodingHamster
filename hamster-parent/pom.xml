@@ -47,7 +47,7 @@
 				<artifactId>hamster-web</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
-			
+
 			<!-- annotation processor for generating builder classes -->
 			<dependency>
 				<groupId>net.karneim</groupId>
@@ -251,6 +251,24 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.5.1</version>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+						<compilerArgument>-Xlint:all</compilerArgument>
+						<showWarnings>false</showWarnings>
+						<showDeprecation>false</showDeprecation>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 	<modules>
 		<module>hamster-model</module>
 		<module>hamster-services</module>

@@ -1,5 +1,6 @@
 package org.hamster.model.runtime;
 
+
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -19,106 +20,157 @@ import org.hamster.model.user.User;
 
 import net.karneim.pojobuilder.GeneratePojoBuilder;
 
+
 @Entity
 @Table(name = "ChallengeInstances")
 @GeneratePojoBuilder(withSetterNamePattern = "*")
-public class Instance {
+public class Instance
+{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-	@ManyToOne
-	private ContainerInstance containerInstance;
-	@ManyToOne
-	private Definition definition;
-	@ManyToOne
-	private User challenger;
-	@ManyToOne
-	private User target;
+    @ManyToOne
+    private ContainerInstance containerInstance;
+    @ManyToOne
+    private Definition definition;
+    @ManyToOne
+    private User challenger;
+    @ManyToOne
+    private User target;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date submittedOn;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date contentSubmittedon;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date completedOn;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date submittedOn;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date contentSubmittedon;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date completedOn;
 
-	@OneToOne
-	private Content content;
+    @OneToOne
+    private Content content;
 
-	@Enumerated(EnumType.STRING)
-	private ChallengeStatus status;
+    @Enumerated(EnumType.STRING)
+    private ChallengeStatus status;
 
-	public long getId() {
-		return id;
-	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public long getId()
+    {
+        return id;
+    }
 
-	public ContainerInstance getContainerInstance() {
-		return containerInstance;
-	}
 
-	public void setContainerInstance(ContainerInstance containerInstance) {
-		this.containerInstance = containerInstance;
-	}
+    public void setId(long id)
+    {
+        this.id = id;
+    }
 
-	public Definition getDefinition() {
-		return definition;
-	}
 
-	public void setDefinition(Definition definition) {
-		this.definition = definition;
-	}
+    public ContainerInstance getContainerInstance()
+    {
+        return containerInstance;
+    }
 
-	public User getChallenger() {
-		return challenger;
-	}
 
-	public void setChallenger(User challenger) {
-		this.challenger = challenger;
-	}
+    public void setContainerInstance(ContainerInstance containerInstance)
+    {
+        this.containerInstance = containerInstance;
+    }
 
-	public User getTarget() {
-		return target;
-	}
 
-	public void setTarget(User target) {
-		this.target = target;
-	}
+    public Definition getDefinition()
+    {
+        return definition;
+    }
 
-	public Date getSubmittedOn() {
-		return submittedOn;
-	}
 
-	public void setSubmittedOn(Date submittedOn) {
-		this.submittedOn = submittedOn;
-	}
+    public void setDefinition(Definition definition)
+    {
+        this.definition = definition;
+    }
 
-	public Date getContentSubmittedon() {
-		return contentSubmittedon;
-	}
 
-	public void setContentSubmittedon(Date contentSubmittedon) {
-		this.contentSubmittedon = contentSubmittedon;
-	}
+    public User getChallenger()
+    {
+        return challenger;
+    }
 
-	public Date getCompletedOn() {
-		return completedOn;
-	}
 
-	public void setCompletedOn(Date completedOn) {
-		this.completedOn = completedOn;
-	}
+    public void setChallenger(User challenger)
+    {
+        this.challenger = challenger;
+    }
 
-	public ChallengeStatus getStatus() {
-		return status;
-	}
 
-	public void setStatus(ChallengeStatus status) {
-		this.status = status;
-	}
+    public User getTarget()
+    {
+        return target;
+    }
+
+
+    public void setTarget(User target)
+    {
+        this.target = target;
+    }
+
+
+    public Date getSubmittedOn()
+    {
+        return submittedOn;
+    }
+
+
+    public void setSubmittedOn(Date submittedOn)
+    {
+        this.submittedOn = submittedOn;
+    }
+
+
+    public Date getContentSubmittedon()
+    {
+        return contentSubmittedon;
+    }
+
+
+    public void setContentSubmittedon(Date contentSubmittedon)
+    {
+        this.contentSubmittedon = contentSubmittedon;
+    }
+
+
+    public Date getCompletedOn()
+    {
+        return completedOn;
+    }
+
+
+    public void setCompletedOn(Date completedOn)
+    {
+        this.completedOn = completedOn;
+    }
+
+
+    public ChallengeStatus getStatus()
+    {
+        return status;
+    }
+
+
+    public void setStatus(ChallengeStatus status)
+    {
+        this.status = status;
+    }
+
+
+    public Content getContent()
+    {
+        return content;
+    }
+
+
+    public void setContent(Content content)
+    {
+        this.content = content;
+    }
+
 }

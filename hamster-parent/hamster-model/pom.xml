@@ -9,15 +9,16 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>hamster-model</artifactId>
-	<name>hamster-model</name>
-	<url>http://maven.apache.org</url>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.frisky.hamster</groupId>
 			<artifactId>hamster-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.karneim</groupId>
+			<artifactId>pojobuilder</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.karneim</groupId>
@@ -56,6 +57,6 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			</dependency>
+		</dependency>
 	</dependencies>
 </project>

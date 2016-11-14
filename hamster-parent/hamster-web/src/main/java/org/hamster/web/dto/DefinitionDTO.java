@@ -1,32 +1,33 @@
-package org.hamster.model.def;
+package org.hamster.web.dto;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import net.karneim.pojobuilder.GeneratePojoBuilder;
+import org.hamster.model.def.Definition;
 
 
-@Entity
-@Table(name = "ChallengeDefinitions")
-@GeneratePojoBuilder(withSetterNamePattern = "*")
-public class Definition
+public class DefinitionDTO
 {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String name;
 
-    @Column(length = 1024)
     private String description;
 
-    private String category; // TODO enum?
+    private String category;
+
+
+    public DefinitionDTO()
+    {
+        super();
+    }
+
+
+    public DefinitionDTO(Definition def)
+    {
+        this.id = def.getId();
+        this.name = def.getName();
+        this.category = def.getCategory();
+        this.description = def.getDescription();
+    }
 
 
     public long getId()
@@ -75,4 +76,5 @@ public class Definition
     {
         this.category = category;
     }
+
 }

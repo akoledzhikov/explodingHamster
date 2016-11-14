@@ -13,7 +13,15 @@ public class DataImporterListener
     @PostConstruct
     public void importData()
     {
-
+        // users
+        // user relations
+        // defs
+        // def availability
+        // containers
+        // rules
+        // instances
+        // content
+        // votes
     }
 
 }
