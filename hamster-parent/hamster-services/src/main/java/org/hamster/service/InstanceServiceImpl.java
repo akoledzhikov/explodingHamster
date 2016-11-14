@@ -15,6 +15,11 @@ public class InstanceServiceImpl
     {
         return instRepo.findAll();
     }
+    
+    public Iterable<Instance> findAll(Iterable<Long> arg0)
+    {
+        return instRepo.findAll(arg0);
+    }
 
     public Instance findOne(Long arg0)
     {

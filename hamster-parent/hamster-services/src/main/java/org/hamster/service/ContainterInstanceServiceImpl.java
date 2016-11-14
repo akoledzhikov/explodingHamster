@@ -20,6 +20,12 @@ public class ContainterInstanceServiceImpl
     }
 
 
+    public Iterable<ContainerInstance> findAll(Iterable<Long> arg0)
+    {
+        return containerRepo.findAll(arg0);
+    }
+
+
     public ContainerInstance findOne(Long arg0)
     {
         return containerRepo.findOne(arg0);

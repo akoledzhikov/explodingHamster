@@ -24,6 +24,12 @@ public class VoteServiceImpl
     }
 
 
+    public Iterable<Vote> findAll(Iterable<Long> arg0)
+    {
+        return voteRepo.findAll(arg0);
+    }
+
+
     public Collection<Vote> findByChallenge(Instance instance)
     {
         return voteRepo.findByChallenge(instance);

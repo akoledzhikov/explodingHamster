@@ -17,6 +17,11 @@ public class UserServiceImpl
     {
         return userRepo.findAll();
     }
+    
+    public Iterable<User> findAll(Iterable<Long> arg0)
+    {
+        return userRepo.findAll(arg0);
+    }
 
 
     public User findOne(Long arg0)
