@@ -1,8 +1,11 @@
 package org.hamster.service;
 
 
+import java.util.Collection;
+
 import org.hamster.dao.DefinitionAvailabilityRepository;
 import org.hamster.model.user.DefinitionAvailability;
+import org.hamster.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,4 +39,12 @@ public class DefinitionAvailabilityServiceImpl
     {
         return defAvailRepo.save(arg0);
     }
+
+
+    public Collection<DefinitionAvailability> findByUser(User user)
+    {
+        return defAvailRepo.findByUser(user);
+    }
+    
+    
 }

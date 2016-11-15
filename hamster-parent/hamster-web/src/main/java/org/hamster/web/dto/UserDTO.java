@@ -2,6 +2,7 @@ package org.hamster.web.dto;
 
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,12 @@ public class UserDTO
     public UserDTO()
     {
         super();
+    }
+
+
+    public UserDTO(User user)
+    {
+        this(user, Collections.emptyList());
     }
 
 
