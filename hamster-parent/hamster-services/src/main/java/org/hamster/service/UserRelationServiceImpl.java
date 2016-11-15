@@ -1,7 +1,10 @@
 package org.hamster.service;
 
 
+import java.util.Collection;
+
 import org.hamster.dao.UserRelationRepository;
+import org.hamster.model.user.User;
 import org.hamster.model.user.UserRelation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +39,13 @@ public class UserRelationServiceImpl
     {
         return urRepo.save(arg0);
     }
+
+
+    public Collection<UserRelation> findByUser(User user)
+    {
+        return urRepo.findByUser(user);
+    }
+    
+    
 
 }

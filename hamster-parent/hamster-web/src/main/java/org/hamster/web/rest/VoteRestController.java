@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("api/v1/instances")
+@RequestMapping("api/v1/votes")
 public class VoteRestController
 {
     @Autowired

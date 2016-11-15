@@ -40,7 +40,7 @@ public class UserDTO
     }
 
 
-    public UserDTO(User user, List<User> friends)
+    public UserDTO(User user, Collection<User> friends)
     {
         this.id = user.getId();
         this.mail = user.getMail();

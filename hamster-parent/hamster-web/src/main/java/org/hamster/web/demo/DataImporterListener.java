@@ -4,7 +4,6 @@ package org.hamster.web.demo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -104,7 +103,7 @@ public class DataImporterListener
 
         for (int i = 0; i < users.size(); i++)
         {
-            for (int j = i; j < users.size(); j++)
+            for (int j = i+1; j < users.size(); j++)
             {
                 UserRelation ur1 = new UserRelation(users.get(i), users.get(j));
                 UserRelation ur2 = new UserRelation(users.get(j), users.get(i));

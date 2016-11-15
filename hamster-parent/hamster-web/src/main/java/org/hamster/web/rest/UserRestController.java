@@ -2,9 +2,12 @@ package org.hamster.web.rest;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.hamster.model.user.User;
+import org.hamster.model.user.UserRelation;
 import org.hamster.service.UserRelationServiceImpl;
 import org.hamster.service.UserServiceImpl;
 import org.hamster.web.dto.UserDTO;
@@ -37,7 +40,9 @@ public class UserRestController
         List<UserDTO> result = new ArrayList<>();
         for (User u : users)
         {
-            result.add(new UserDTO(u));
+            Collection<UserRelation> friends = urs.findByUser(u);
+            List<User> list = friends.stream().map(UserRelation::getFriend).collect(Collectors.toList());
+            result.add(new UserDTO(u, list));
         }
 
         return new ResponseEntity<Iterable<UserDTO>>(result, HttpStatus.OK);
@@ -61,7 +66,9 @@ public class UserRestController
     public ResponseEntity<UserDTO> findOne(@RequestBody SingleIdBasedRequest request)
     {
         User result = us.findOne(request.getId());
-        return new ResponseEntity<UserDTO>(new UserDTO(result), HttpStatus.OK);
+        Collection<UserRelation> friends = urs.findByUser(result);
+        List<User> list = friends.stream().map(UserRelation::getFriend).collect(Collectors.toList());
+        return new ResponseEntity<UserDTO>(new UserDTO(result, list), HttpStatus.OK);
     }
 
 
