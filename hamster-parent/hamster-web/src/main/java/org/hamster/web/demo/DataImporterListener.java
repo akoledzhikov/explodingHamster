@@ -2,6 +2,8 @@ package org.hamster.web.demo;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,10 +11,15 @@ import javax.annotation.PostConstruct;
 
 import org.hamster.model.def.Definition;
 import org.hamster.model.def.DefinitionBuilder;
+import org.hamster.model.runtime.ChallengeStatus;
 import org.hamster.model.runtime.ContainerInstance;
 import org.hamster.model.runtime.ContainerInstanceBuilder;
+import org.hamster.model.runtime.Instance;
+import org.hamster.model.runtime.InstanceBuilder;
 import org.hamster.model.runtime.RuleInstance;
 import org.hamster.model.runtime.RuleInstanceBuilder;
+import org.hamster.model.runtime.Vote;
+import org.hamster.model.runtime.VoteBuilder;
 import org.hamster.model.user.DefinitionAvailability;
 import org.hamster.model.user.DefinitionAvailabilityBuilder;
 import org.hamster.model.user.User;
@@ -21,9 +28,11 @@ import org.hamster.model.user.UserRelation;
 import org.hamster.service.ContainterInstanceServiceImpl;
 import org.hamster.service.DefinitionAvailabilityServiceImpl;
 import org.hamster.service.DefinitionServiceImpl;
+import org.hamster.service.InstanceServiceImpl;
 import org.hamster.service.RuleInstanceServiceImpl;
 import org.hamster.service.UserRelationServiceImpl;
 import org.hamster.service.UserServiceImpl;
+import org.hamster.service.VoteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -48,6 +57,12 @@ public class DataImporterListener
 
     @Autowired
     private RuleInstanceServiceImpl ris;
+    
+    @Autowired
+    private InstanceServiceImpl is;
+    
+    @Autowired
+    private VoteServiceImpl vs;
 
 
     @PostConstruct
@@ -103,7 +118,7 @@ public class DataImporterListener
 
         for (int i = 0; i < users.size(); i++)
         {
-            for (int j = i+1; j < users.size(); j++)
+            for (int j = i + 1; j < users.size(); j++)
             {
                 UserRelation ur1 = new UserRelation(users.get(i), users.get(j));
                 UserRelation ur2 = new UserRelation(users.get(j), users.get(i));
@@ -172,7 +187,7 @@ public class DataImporterListener
                                                            .parameters(votingMap)
                                                            .build();
             ris.save(voting);
-            
+
             HashMap<String, Object> pointsMap = new HashMap<>();
             pointsMap.put("points", 100);
             RuleInstance points = new RuleInstanceBuilder().containerInstance(ci)
@@ -182,8 +197,67 @@ public class DataImporterListener
             ris.save(points);
         }
 
-        // instances
+        Date today = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.HOUR, 24);
+        Date tomorrow = cal.getTime();
+        Instance i1 = new InstanceBuilder().challenger(alex)
+                                           .target(stefo)
+                                           .containerInstance(ci1)
+                                           .status(ChallengeStatus.ACTIVE)
+                                           .definition(d1)
+                                           .submittedOn(today)
+                                           .build();
+        
+        Instance i2 = new InstanceBuilder().challenger(stefo)
+                        .target(yulia)
+                        .containerInstance(ci2)
+                        .status(ChallengeStatus.VOTING)
+                        .definition(d2)
+                        .submittedOn(today)
+                        .contentSubmittedon(today)
+                        .build();
+        
+        Instance i3 = new InstanceBuilder().challenger(yulia)
+                        .target(irina)
+                        .containerInstance(ci3)
+                        .status(ChallengeStatus.SUCESSFUL)
+                        .definition(d3)
+                        .submittedOn(today)
+                        .contentSubmittedon(today)
+                        .completedOn(tomorrow)
+                        .build();
+        
+        Instance i4 = new InstanceBuilder().challenger(irina)
+                        .target(alex)
+                        .containerInstance(ci4)
+                        .status(ChallengeStatus.FAILED)
+                        .definition(d3)
+                        .submittedOn(today)
+                        .contentSubmittedon(today)
+                        .completedOn(tomorrow)
+                        .build();
+        
+        is.save(i1);
+        is.save(i2);
+        is.save(i3);
+        is.save(i4);
+        
+        Vote v1 = new VoteBuilder().challenge(i2).positive(true).user(alex).build();
+        Vote v2 = new VoteBuilder().challenge(i3).positive(true).user(alex).build();
+        Vote v3 = new VoteBuilder().challenge(i3).positive(true).user(yulia).build();
+        Vote v4 = new VoteBuilder().challenge(i3).positive(true).user(stefo).build();
+        Vote v5 = new VoteBuilder().challenge(i4).positive(true).user(yulia).build();
+        Vote v6 = new VoteBuilder().challenge(i4).positive(false).user(irina).build();
+        Vote v7 = new VoteBuilder().challenge(i4).positive(false).user(stefo).build();
+        
+        vs.save(v1);
+        vs.save(v2);
+        vs.save(v3);
+        vs.save(v4);
+        vs.save(v5);
+        vs.save(v6);
+        vs.save(v7);
         // content
-        // votes
     }
 }
