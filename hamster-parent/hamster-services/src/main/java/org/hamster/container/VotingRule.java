@@ -22,6 +22,5 @@ public class VotingRule
             challengeInstance.setVotingType(vt);
             challengeInstance.setVotingStartedOn(new Date()); // this 
         }
-
     }
 }
