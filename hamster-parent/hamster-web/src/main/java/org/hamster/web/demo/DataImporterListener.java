@@ -183,7 +183,7 @@ public class DataImporterListener
             HashMap<String, Object> votingMap = new HashMap<>();
             votingMap.put("type", "public");
             RuleInstance voting = new RuleInstanceBuilder().containerInstance(ci)
-                                                           .ruleClass("voting")
+                                                           .ruleClass("votingRule")
                                                            .parameters(votingMap)
                                                            .build();
             ris.save(voting);
@@ -191,7 +191,7 @@ public class DataImporterListener
             HashMap<String, Object> pointsMap = new HashMap<>();
             pointsMap.put("points", 100);
             RuleInstance points = new RuleInstanceBuilder().containerInstance(ci)
-                                                           .ruleClass("points")
+                                                           .ruleClass("pointsRule")
                                                            .parameters(pointsMap)
                                                            .build();
             ris.save(points);
@@ -215,7 +215,7 @@ public class DataImporterListener
                         .status(ChallengeStatus.VOTING)
                         .definition(d2)
                         .submittedOn(today)
-                        .contentSubmittedon(today)
+                        .votingStartedOn(today)
                         .build();
         
         Instance i3 = new InstanceBuilder().challenger(yulia)
@@ -224,7 +224,7 @@ public class DataImporterListener
                         .status(ChallengeStatus.SUCESSFUL)
                         .definition(d3)
                         .submittedOn(today)
-                        .contentSubmittedon(today)
+                        .votingStartedOn(today)
                         .completedOn(tomorrow)
                         .build();
         
@@ -234,7 +234,7 @@ public class DataImporterListener
                         .status(ChallengeStatus.FAILED)
                         .definition(d3)
                         .submittedOn(today)
-                        .contentSubmittedon(today)
+                        .votingStartedOn(today)
                         .completedOn(tomorrow)
                         .build();
         

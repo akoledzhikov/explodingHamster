@@ -1,5 +1,6 @@
 package org.hamster.model.user;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,82 +9,136 @@ import javax.persistence.Table;
 
 import net.karneim.pojobuilder.GeneratePojoBuilder;
 
+
 @Entity
 @Table(name = "Users")
 @GeneratePojoBuilder(withSetterNamePattern = "*")
-public class User {
+public class User
+{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-	private String mail;
+    private String mail;
 
-	private String firstName;
+    private String firstName;
 
-	private String lastName;
+    private String lastName;
 
-	private int permanentPoints;
+    private int permanentPoints;
 
-	private int currentMonthlyPoints;
-	
-	// TODO historic tracking of past monthly points
+    private int currentMonthlyPoints;
 
-	private int credits;
+    // TODO historic tracking of past monthly points
 
-	public long getId() {
-		return id;
-	}
+    private int credits;
 
-	public void setId(long id) {
-		this.id = id;
-	}
 
-	public String getMail() {
-		return mail;
-	}
+    public long getId()
+    {
+        return id;
+    }
 
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setId(long id)
+    {
+        this.id = id;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getMail()
+    {
+        return mail;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
 
-	public int getPermanentPoints() {
-		return permanentPoints;
-	}
+    public void setMail(String mail)
+    {
+        this.mail = mail;
+    }
 
-	public void setPermanentPoints(int permanentPoints) {
-		this.permanentPoints = permanentPoints;
-	}
 
-	public int getCurrentMonthlyPoints() {
-		return currentMonthlyPoints;
-	}
+    public String getFirstName()
+    {
+        return firstName;
+    }
 
-	public void setCurrentMonthlyPoints(int currentMonthlyPoints) {
-		this.currentMonthlyPoints = currentMonthlyPoints;
-	}
 
-	public int getCredits() {
-		return credits;
-	}
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
 
-	public void setCredits(int credits) {
-		this.credits = credits;
-	}
+
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
+    }
+
+
+    public int getPermanentPoints()
+    {
+        return permanentPoints;
+    }
+
+
+    public void setPermanentPoints(int permanentPoints)
+    {
+        this.permanentPoints = permanentPoints;
+    }
+
+
+    public int getCurrentMonthlyPoints()
+    {
+        return currentMonthlyPoints;
+    }
+
+
+    public void setCurrentMonthlyPoints(int currentMonthlyPoints)
+    {
+        this.currentMonthlyPoints = currentMonthlyPoints;
+    }
+
+
+    public int getCredits()
+    {
+        return credits;
+    }
+
+
+    public void setCredits(int credits)
+    {
+        this.credits = credits;
+    }
+
+
+    public void addMonthlyPoints(int points)
+    {
+        this.currentMonthlyPoints += points;
+    }
+
+
+    public void addPermanentPoints(int points)
+    {
+        this.permanentPoints += points;
+    }
+
+
+    public void addCredits(int credits)
+    {
+        this.credits += credits;
+    }
+
+
+    public void subtractCredits(int credits)
+    {
+        this.credits -= credits;
+    }
 }

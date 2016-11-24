@@ -17,7 +17,7 @@ public class InstanceDTO
     private long target;
 
     private Date submittedOn;
-    private Date contentSubmittedon;
+    private Date votingStartedOn;
     private Date completedOn;
 
     private long content;
@@ -39,7 +39,7 @@ public class InstanceDTO
         this.challenger = instance.getChallenger().getId();
         this.target = instance.getTarget().getId();
         this.submittedOn = instance.getSubmittedOn();
-        this.contentSubmittedon = instance.getContentSubmittedon();
+        this.votingStartedOn = instance.getVotingStartedOn();
         this.completedOn = instance.getCompletedOn();
         this.content = instance.getContent().getId();
         this.status = instance.getStatus();
@@ -118,15 +118,15 @@ public class InstanceDTO
     }
 
 
-    public Date getContentSubmittedon()
+    public Date getVotingStartedOn()
     {
-        return contentSubmittedon;
+        return votingStartedOn;
     }
 
 
-    public void setContentSubmittedon(Date contentSubmittedon)
+    public void setVotingStartedOn(Date votingStartedOn)
     {
-        this.contentSubmittedon = contentSubmittedon;
+        this.votingStartedOn = votingStartedOn;
     }
 
 

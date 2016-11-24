@@ -43,7 +43,7 @@ public class Instance
     @Temporal(TemporalType.TIMESTAMP)
     private Date submittedOn;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date contentSubmittedon;
+    private Date votingStartedOn;
     @Temporal(TemporalType.TIMESTAMP)
     private Date completedOn;
 
@@ -52,6 +52,8 @@ public class Instance
 
     @Enumerated(EnumType.STRING)
     private ChallengeStatus status;
+    @Enumerated(EnumType.STRING)
+    private VotingType votingType;
 
 
     public long getId()
@@ -126,15 +128,15 @@ public class Instance
     }
 
 
-    public Date getContentSubmittedon()
+    public Date getVotingStartedOn()
     {
-        return contentSubmittedon;
+        return votingStartedOn;
     }
 
 
-    public void setContentSubmittedon(Date contentSubmittedon)
+    public void setVotingStartedOn(Date votingStartedOn)
     {
-        this.contentSubmittedon = contentSubmittedon;
+        this.votingStartedOn = votingStartedOn;
     }
 
 
@@ -173,4 +175,15 @@ public class Instance
         this.content = content;
     }
 
+
+    public VotingType getVotingType()
+    {
+        return votingType;
+    }
+
+
+    public void setVotingType(VotingType votingType)
+    {
+        this.votingType = votingType;
+    }
 }
