@@ -4,15 +4,14 @@ package org.hamster.container;
 import java.util.Collection;
 
 import org.hamster.model.runtime.Instance;
-import org.hamster.model.runtime.RuleInstance;
 import org.hamster.model.runtime.Vote;
 import org.hamster.model.runtime.VotingType;
 import org.hamster.service.VoteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 
-@Service("pointsRule")
+@Component("pointsRule")
 public class PointsRule
     implements Rule
 {
@@ -20,7 +19,7 @@ public class PointsRule
     private VoteServiceImpl vs;
 
 
-    public void apply(Instance challengeInstance, RuleInstance ruleInstance, ChallengeEvent event)
+    public void apply(Instance challengeInstance, ChallengeEvent event)
     {
         if (ChallengeEvent.SUCCESS.equals(event))
         {

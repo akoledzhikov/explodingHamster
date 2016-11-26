@@ -1,5 +1,6 @@
 package org.hamster.model.runtime;
 
+
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -11,51 +12,55 @@ import javax.persistence.Table;
 
 import net.karneim.pojobuilder.GeneratePojoBuilder;
 
+
 @Entity
 @Table(name = "ContainerInstances")
 @GeneratePojoBuilder(withSetterNamePattern = "*")
-public class ContainerInstance {
+public class ContainerInstance
+{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-	@OneToMany(mappedBy = "containerInstance")
-	private Collection<RuleInstance> ruleInstances;
-	@OneToMany(mappedBy = "containerInstance")
-	private Collection<Instance> challengeInstances;
+    @OneToMany(mappedBy = "containerInstance")
+    private Collection<Instance> challengeInstances;
 
-	private String containerClass;
+    private String containerClass;
 
-	public long getId() {
-		return id;
-	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public long getId()
+    {
+        return id;
+    }
 
-	public Collection<RuleInstance> getRuleInstances() {
-		return ruleInstances;
-	}
 
-	public void setRuleInstances(Collection<RuleInstance> ruleInstances) {
-		this.ruleInstances = ruleInstances;
-	}
+    public void setId(long id)
+    {
+        this.id = id;
+    }
 
-	public Collection<Instance> getChallengeInstances() {
-		return challengeInstances;
-	}
 
-	public void setChallengeInstances(Collection<Instance> challengeInstances) {
-		this.challengeInstances = challengeInstances;
-	}
+    public Collection<Instance> getChallengeInstances()
+    {
+        return challengeInstances;
+    }
 
-	public String getContainerClass() {
-		return containerClass;
-	}
 
-	public void setContainerClass(String containerClass) {
-		this.containerClass = containerClass;
-	}
+    public void setChallengeInstances(Collection<Instance> challengeInstances)
+    {
+        this.challengeInstances = challengeInstances;
+    }
+
+
+    public String getContainerClass()
+    {
+        return containerClass;
+    }
+
+
+    public void setContainerClass(String containerClass)
+    {
+        this.containerClass = containerClass;
+    }
 }

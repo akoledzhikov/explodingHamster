@@ -6,15 +6,12 @@ import java.util.stream.Collectors;
 
 import org.hamster.model.runtime.ContainerInstance;
 import org.hamster.model.runtime.Instance;
-import org.hamster.model.runtime.RuleInstance;
 
 
 public class ContainerInstanceDTO
 {
 
     private long id;
-
-    private Collection<Long> ruleInstances;
 
     private Collection<Long> challengeInstances;
 
@@ -31,8 +28,10 @@ public class ContainerInstanceDTO
     {
         this.id = ci.getId();
         this.containerClass = ci.getContainerClass();
-        this.ruleInstances = ci.getRuleInstances().stream().map(RuleInstance::getId).collect(Collectors.toList());
-        this.challengeInstances = ci.getChallengeInstances().stream().map(Instance::getId).collect(Collectors.toList());
+        this.challengeInstances = ci.getChallengeInstances()
+                                    .stream()
+                                    .map(Instance::getId)
+                                    .collect(Collectors.toList());
     }
 
 
@@ -45,18 +44,6 @@ public class ContainerInstanceDTO
     public void setId(long id)
     {
         this.id = id;
-    }
-
-
-    public Collection<Long> getRuleInstances()
-    {
-        return ruleInstances;
-    }
-
-
-    public void setRuleInstances(Collection<Long> ruleInstances)
-    {
-        this.ruleInstances = ruleInstances;
     }
 
 

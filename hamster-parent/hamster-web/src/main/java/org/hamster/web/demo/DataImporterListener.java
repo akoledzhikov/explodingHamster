@@ -16,8 +16,6 @@ import org.hamster.model.runtime.ContainerInstance;
 import org.hamster.model.runtime.ContainerInstanceBuilder;
 import org.hamster.model.runtime.Instance;
 import org.hamster.model.runtime.InstanceBuilder;
-import org.hamster.model.runtime.RuleInstance;
-import org.hamster.model.runtime.RuleInstanceBuilder;
 import org.hamster.model.runtime.Vote;
 import org.hamster.model.runtime.VoteBuilder;
 import org.hamster.model.user.DefinitionAvailability;
@@ -29,7 +27,6 @@ import org.hamster.service.ContainterInstanceServiceImpl;
 import org.hamster.service.DefinitionAvailabilityServiceImpl;
 import org.hamster.service.DefinitionServiceImpl;
 import org.hamster.service.InstanceServiceImpl;
-import org.hamster.service.RuleInstanceServiceImpl;
 import org.hamster.service.UserRelationServiceImpl;
 import org.hamster.service.UserServiceImpl;
 import org.hamster.service.VoteServiceImpl;
@@ -54,9 +51,6 @@ public class DataImporterListener
 
     @Autowired
     private ContainterInstanceServiceImpl cis;
-
-    @Autowired
-    private RuleInstanceServiceImpl ris;
     
     @Autowired
     private InstanceServiceImpl is;
@@ -130,16 +124,19 @@ public class DataImporterListener
         Definition d1 = new DefinitionBuilder().name("Hamster painting")
                                                .category("Art")
                                                .description("Paint a hamster")
+                                               .cost(10)
                                                .build();
 
         Definition d2 = new DefinitionBuilder().name("Hamster cosplay")
                                                .category("Art")
                                                .description("Dress as a hamster")
+                                               .cost(10)
                                                .build();
 
         Definition d3 = new DefinitionBuilder().name("Hamster song")
                                                .category("Singing")
                                                .description("Sing the intro song to \"Orochuban Ebichu\"")
+                                               .cost(10)
                                                .build();
 
         d1 = ds.save(d1);
@@ -178,35 +175,19 @@ public class DataImporterListener
         containerInstances.add(ci3);
         containerInstances.add(ci4);
 
-        for (ContainerInstance ci : containerInstances)
-        {
-            HashMap<String, Object> votingMap = new HashMap<>();
-            votingMap.put("type", "public");
-            RuleInstance voting = new RuleInstanceBuilder().containerInstance(ci)
-                                                           .ruleClass("votingRule")
-                                                           .parameters(votingMap)
-                                                           .build();
-            ris.save(voting);
-
-            HashMap<String, Object> pointsMap = new HashMap<>();
-            pointsMap.put("points", 100);
-            RuleInstance points = new RuleInstanceBuilder().containerInstance(ci)
-                                                           .ruleClass("pointsRule")
-                                                           .parameters(pointsMap)
-                                                           .build();
-            ris.save(points);
-        }
-
         Date today = new Date();
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.HOUR, 24);
         Date tomorrow = cal.getTime();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("votingTyp", "public");
         Instance i1 = new InstanceBuilder().challenger(alex)
                                            .target(stefo)
                                            .containerInstance(ci1)
                                            .status(ChallengeStatus.ACTIVE)
                                            .definition(d1)
                                            .submittedOn(today)
+                                           .parameters(params)
                                            .build();
         
         Instance i2 = new InstanceBuilder().challenger(stefo)
@@ -216,6 +197,7 @@ public class DataImporterListener
                         .definition(d2)
                         .submittedOn(today)
                         .votingStartedOn(today)
+                        .parameters(params)
                         .build();
         
         Instance i3 = new InstanceBuilder().challenger(yulia)
@@ -226,6 +208,7 @@ public class DataImporterListener
                         .submittedOn(today)
                         .votingStartedOn(today)
                         .completedOn(tomorrow)
+                        .parameters(params)
                         .build();
         
         Instance i4 = new InstanceBuilder().challenger(irina)
@@ -236,6 +219,7 @@ public class DataImporterListener
                         .submittedOn(today)
                         .votingStartedOn(today)
                         .completedOn(tomorrow)
+                        .parameters(params)
                         .build();
         
         is.save(i1);

@@ -28,6 +28,8 @@ public class Definition
 
     private String category; // TODO enum?
 
+    private int cost;
+
 
     public long getId()
     {
@@ -74,5 +76,17 @@ public class Definition
     public void setCategory(String category)
     {
         this.category = category;
+    }
+
+
+    public int getCost()
+    {
+        return cost;
+    }
+
+
+    public void setCost(int cost)
+    {
+        this.cost = cost;
     }
 }

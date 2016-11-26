@@ -3,15 +3,14 @@ package org.hamster.container;
 
 import org.hamster.model.runtime.ChallengeStatus;
 import org.hamster.model.runtime.Instance;
-import org.hamster.model.runtime.RuleInstance;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 
-@Service("stateChange")
+@Component("stateChangeRule")
 public class StateChangeRule
     implements Rule
 {
-    public void apply(Instance challengeInstance, RuleInstance ruleInstance, ChallengeEvent event)
+    public void apply(Instance challengeInstance, ChallengeEvent event)
     {
         if (ChallengeEvent.CREATED.equals(event))
         {

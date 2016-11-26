@@ -2,6 +2,7 @@ package org.hamster.model.runtime;
 
 
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,16 +10,17 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import net.karneim.pojobuilder.GeneratePojoBuilder;
+
 import org.hamster.model.def.Definition;
 import org.hamster.model.user.User;
-
-import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 
 @Entity
@@ -54,6 +56,9 @@ public class Instance
     private ChallengeStatus status;
     @Enumerated(EnumType.STRING)
     private VotingType votingType;
+
+    @Lob
+    private HashMap<String, Object> parameters;
 
 
     public long getId()
@@ -185,5 +190,17 @@ public class Instance
     public void setVotingType(VotingType votingType)
     {
         this.votingType = votingType;
+    }
+
+
+    public HashMap<String, Object> getParameters()
+    {
+        return parameters;
+    }
+
+
+    public void setParameters(HashMap<String, Object> parameters)
+    {
+        this.parameters = parameters;
     }
 }
