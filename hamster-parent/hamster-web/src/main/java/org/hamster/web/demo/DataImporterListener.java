@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.hamster.api.exc.DuplicateVoteException;
 import org.hamster.model.def.Definition;
 import org.hamster.model.def.DefinitionBuilder;
 import org.hamster.model.runtime.ChallengeStatus;
@@ -60,7 +61,7 @@ public class DataImporterListener
 
 
     @PostConstruct
-    public void importData()
+    public void importData() throws DuplicateVoteException
     {
         User alex = new UserBuilder().mail("alex@hamster.com")
                                      .credits(30)
@@ -242,6 +243,8 @@ public class DataImporterListener
         vs.save(v5);
         vs.save(v6);
         vs.save(v7);
+        
+        vs.findByChallengeAndUser(i2, alex);
         // content
     }
 }

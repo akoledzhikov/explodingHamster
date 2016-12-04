@@ -3,6 +3,7 @@ package org.hamster.service;
 
 import java.util.Collection;
 
+import org.hamster.api.exc.DuplicateVoteException;
 import org.hamster.dao.VoteRepository;
 import org.hamster.model.runtime.Instance;
 import org.hamster.model.runtime.Vote;
@@ -48,9 +49,16 @@ public class VoteServiceImpl
     }
 
 
-    public <S extends Vote> S save(S arg0)
+    public <S extends Vote> S save(S arg0) throws DuplicateVoteException
     {
-        return voteRepo.save(arg0);
+        if (voteRepo.findByChallengeAndUser(arg0.getChallenge(), arg0.getUser()) == null)
+        {
+            return voteRepo.save(arg0);
+        }
+        else
+        {
+            throw new DuplicateVoteException();
+        }
     }
 
 }

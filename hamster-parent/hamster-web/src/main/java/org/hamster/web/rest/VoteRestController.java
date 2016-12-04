@@ -4,8 +4,10 @@ package org.hamster.web.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hamster.api.exc.DuplicateVoteException;
+import org.hamster.container.ChallengeEngine;
+import org.hamster.container.ChallengeEvent;
 import org.hamster.model.runtime.Vote;
-import org.hamster.service.ContainterInstanceServiceImpl;
 import org.hamster.service.VoteServiceImpl;
 import org.hamster.web.dto.VoteDTO;
 import org.hamster.web.dto.request.MultiIdBasedRequest;
@@ -25,6 +27,9 @@ public class VoteRestController
 {
     @Autowired
     private VoteServiceImpl vs;
+
+    @Autowired
+    private ChallengeEngine engine;
 
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
@@ -64,8 +69,11 @@ public class VoteRestController
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResponseEntity<VoteDTO> save(@RequestBody VoteDTO request)
+        throws DuplicateVoteException
     {
-        // TODO actual saving
+        Vote vote = request.toEntity();
+        vs.save(vote);
+        engine.handleChallengeEvent(vote.getChallenge().getId(), ChallengeEvent.VOTED_ON);
         return new ResponseEntity<VoteDTO>(request, HttpStatus.OK);
     }
 }

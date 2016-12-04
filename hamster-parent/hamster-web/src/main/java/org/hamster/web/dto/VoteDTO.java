@@ -1,14 +1,10 @@
 package org.hamster.web.dto;
 
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-import org.hamster.model.runtime.Instance;
+import org.hamster.model.runtime.InstanceBuilder;
 import org.hamster.model.runtime.Vote;
-import org.hamster.model.user.User;
+import org.hamster.model.runtime.VoteBuilder;
+import org.hamster.model.user.UserBuilder;
 
 
 public class VoteDTO
@@ -82,6 +78,14 @@ public class VoteDTO
     public void setPositive(boolean positive)
     {
         this.positive = positive;
+    }
+    
+    
+    public Vote toEntity() {
+        Vote result = new VoteBuilder().id(id).positive(positive).build();
+        result.setChallenge(new InstanceBuilder().id(challenge).build());
+        result.setUser(new UserBuilder().id(user).build());
+        return result;
     }
 
 }

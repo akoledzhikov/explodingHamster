@@ -4,7 +4,11 @@ package org.hamster.web.dto;
 import java.util.Date;
 
 import org.hamster.model.runtime.ChallengeStatus;
+import org.hamster.model.runtime.ContainerInstanceBuilder;
+import org.hamster.model.runtime.ContentBuilder;
 import org.hamster.model.runtime.Instance;
+import org.hamster.model.runtime.InstanceBuilder;
+import org.hamster.model.user.UserBuilder;
 
 
 public class InstanceDTO
@@ -163,5 +167,21 @@ public class InstanceDTO
     public void setStatus(ChallengeStatus status)
     {
         this.status = status;
+    }
+
+
+    public Instance toEntity()
+    {
+        Instance result = new InstanceBuilder().id(id)
+                                               .completedOn(completedOn)
+                                               .submittedOn(submittedOn)
+                                               .votingStartedOn(votingStartedOn)
+                                               .status(status)
+                                               .build();
+        result.setChallenger(new UserBuilder().id(challenger).build());
+        result.setTarget(new UserBuilder().id(target).build());
+        result.setContainerInstance(new ContainerInstanceBuilder().id(containerInstance).build());
+        result.setContent(new ContentBuilder().id(content).build());
+        return result;
     }
 }

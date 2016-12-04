@@ -35,7 +35,7 @@ public class ContainerInstanceRestController
         {
             result.add(new ContainerInstanceDTO(ci));
         }
-        
+
         return new ResponseEntity<Iterable<ContainerInstanceDTO>>(result, HttpStatus.OK);
     }
 
@@ -59,11 +59,12 @@ public class ContainerInstanceRestController
         ContainerInstance result = containerService.findOne(request.getId());
         return new ResponseEntity<ContainerInstanceDTO>(new ContainerInstanceDTO(result), HttpStatus.OK);
     }
-    
+
+
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResponseEntity<ContainerInstanceDTO> save(@RequestBody ContainerInstanceDTO request)
     {
-        // TODO actual saving
+        containerService.save(request.toEntity());
         return new ResponseEntity<ContainerInstanceDTO>(request, HttpStatus.OK);
     }
 }

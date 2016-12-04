@@ -1,11 +1,15 @@
 package org.hamster.web.dto;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.hamster.model.runtime.ContainerInstance;
+import org.hamster.model.runtime.ContainerInstanceBuilder;
 import org.hamster.model.runtime.Instance;
+import org.hamster.model.runtime.InstanceBuilder;
 
 
 public class ContainerInstanceDTO
@@ -68,5 +72,20 @@ public class ContainerInstanceDTO
     public void setContainerClass(String containerClass)
     {
         this.containerClass = containerClass;
+    }
+
+
+    public ContainerInstance toEntity()
+    {
+        ContainerInstance result = new ContainerInstanceBuilder().id(id)
+                                                                 .containerClass(containerClass)
+                                                                 .build();
+        List<Instance> challenges = new ArrayList<>();
+        for (long id : challengeInstances)
+        {
+            challenges.add(new InstanceBuilder().id(id).build());
+        }
+
+        return result;
     }
 }
