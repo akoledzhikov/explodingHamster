@@ -198,6 +198,7 @@ public class DataImporterListener
                         .definition(d2)
                         .submittedOn(today)
                         .votingStartedOn(today)
+                        .votingEndsOn(tomorrow)
                         .parameters(params)
                         .build();
         
@@ -208,7 +209,8 @@ public class DataImporterListener
                         .definition(d3)
                         .submittedOn(today)
                         .votingStartedOn(today)
-                        .completedOn(tomorrow)
+                        .votingEndsOn(today)
+                        .completedOn(today)
                         .parameters(params)
                         .build();
         
@@ -219,7 +221,8 @@ public class DataImporterListener
                         .definition(d3)
                         .submittedOn(today)
                         .votingStartedOn(today)
-                        .completedOn(tomorrow)
+                        .votingEndsOn(today)
+                        .completedOn(today)
                         .parameters(params)
                         .build();
         

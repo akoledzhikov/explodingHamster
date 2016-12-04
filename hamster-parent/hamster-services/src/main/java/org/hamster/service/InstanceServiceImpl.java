@@ -1,5 +1,8 @@
 package org.hamster.service;
 
+import java.util.Collection;
+import java.util.Date;
+
 import org.hamster.dao.InstanceRepository;
 import org.hamster.model.runtime.Instance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,16 @@ public class InstanceServiceImpl
     public <S extends Instance> S save(S arg0)
     {
         return instRepo.save(arg0);
+    }
+
+    public Collection<Instance> findChallengesForExpiry(Date date)
+    {
+        return instRepo.findChallengesForExpiry(date);
+    }
+
+    public Collection<Instance> findChallengesForVoteTallying(Date date)
+    {
+        return instRepo.findChallengesForVoteTallying(date);
     }
     
     

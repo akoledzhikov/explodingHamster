@@ -45,7 +45,11 @@ public class Instance
     @Temporal(TemporalType.TIMESTAMP)
     private Date submittedOn;
     @Temporal(TemporalType.TIMESTAMP)
+    private Date expiresOn;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date votingStartedOn;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date votingEndsOn;
     @Temporal(TemporalType.TIMESTAMP)
     private Date completedOn;
 
@@ -202,5 +206,29 @@ public class Instance
     public void setParameters(HashMap<String, Object> parameters)
     {
         this.parameters = parameters;
+    }
+
+
+    public Date getVotingEndsOn()
+    {
+        return votingEndsOn;
+    }
+
+
+    public void setVotingEndsOn(Date votingEndsOn)
+    {
+        this.votingEndsOn = votingEndsOn;
+    }
+
+
+    public Date getExpiresOn()
+    {
+        return expiresOn;
+    }
+
+
+    public void setExpiresOn(Date expiresOn)
+    {
+        this.expiresOn = expiresOn;
     }
 }

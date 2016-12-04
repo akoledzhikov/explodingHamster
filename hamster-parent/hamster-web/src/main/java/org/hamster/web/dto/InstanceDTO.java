@@ -21,7 +21,9 @@ public class InstanceDTO
     private long target;
 
     private Date submittedOn;
+    private Date expiresOn;
     private Date votingStartedOn;
+    private Date votingEnds;
     private Date completedOn;
 
     private long content;
@@ -43,7 +45,9 @@ public class InstanceDTO
         this.challenger = instance.getChallenger().getId();
         this.target = instance.getTarget().getId();
         this.submittedOn = instance.getSubmittedOn();
+        this.expiresOn = instance.getExpiresOn();
         this.votingStartedOn = instance.getVotingStartedOn();
+        this.votingEnds = instance.getVotingEndsOn();
         this.completedOn = instance.getCompletedOn();
         this.content = instance.getContent().getId();
         this.status = instance.getStatus();
@@ -170,12 +174,38 @@ public class InstanceDTO
     }
 
 
+    public Date getExpiresOn()
+    {
+        return expiresOn;
+    }
+
+
+    public void setExpiresOn(Date expiresOn)
+    {
+        this.expiresOn = expiresOn;
+    }
+
+
+    public Date getVotingEnds()
+    {
+        return votingEnds;
+    }
+
+
+    public void setVotingEnds(Date votingEnds)
+    {
+        this.votingEnds = votingEnds;
+    }
+
+
     public Instance toEntity()
     {
         Instance result = new InstanceBuilder().id(id)
                                                .completedOn(completedOn)
                                                .submittedOn(submittedOn)
                                                .votingStartedOn(votingStartedOn)
+                                               .expiresOn(expiresOn)
+                                               .votingEndsOn(votingEnds)
                                                .status(status)
                                                .build();
         result.setChallenger(new UserBuilder().id(challenger).build());
