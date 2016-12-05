@@ -24,8 +24,12 @@ public class SingleInstanceContainer
     private Rule stateChangeRule;
 
     @Autowired
-    @Qualifier("votingRule")
-    private Rule votingRule;
+    @Qualifier("votingTypeRule")
+    private Rule votingTypeRule;
+    
+    @Autowired
+    @Qualifier("tallyVotesRule")
+    private Rule tallyVotesRule;
 
     @Autowired
     @Qualifier("pointsRule")
@@ -36,9 +40,10 @@ public class SingleInstanceContainer
     {
         List<Rule> result = new ArrayList<>();
         result.add(pointsRule);
-        result.add(votingRule);
+        result.add(votingTypeRule);
         result.add(pricingRule);
         result.add(stateChangeRule);
+        result.add(tallyVotesRule);
         return result;
     }
 

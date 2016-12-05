@@ -9,8 +9,8 @@ import org.hamster.model.runtime.VotingType;
 import org.springframework.stereotype.Component;
 
 
-@Component("votingRule")
-public class VotingRule
+@Component("votingTypeRule")
+public class VotingTypeRule
     implements Rule
 {
 
