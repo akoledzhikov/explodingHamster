@@ -4,8 +4,11 @@ package org.hamster.container;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.hamster.model.runtime.ChallengeStatus;
 import org.hamster.model.runtime.Instance;
 import org.hamster.model.runtime.VotingType;
+import org.hamster.service.InstanceServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -13,6 +16,9 @@ import org.springframework.stereotype.Component;
 public class VotingTypeRule
     implements Rule
 {
+    @Autowired
+    private InstanceServiceImpl is;
+
 
     public void apply(Instance challengeInstance, ChallengeEvent event)
     {
@@ -33,6 +39,8 @@ public class VotingTypeRule
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DATE, votingDays);
             challengeInstance.setVotingEndsOn(cal.getTime());
+            challengeInstance.setStatus(ChallengeStatus.VOTING);
+            is.save(challengeInstance);
         }
     }
 }

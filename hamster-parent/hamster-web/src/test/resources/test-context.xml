@@ -14,11 +14,6 @@
 
 	<jpa:repositories base-package="org.hamster.dao" />
 
-	<task:annotation-driven executor="myExecutor"
-		scheduler="myScheduler" />
-	<task:executor id="myExecutor" pool-size="5" />
-	<task:scheduler id="myScheduler" pool-size="10" />
-
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="org.h2.Driver"></property>
 		<property name="url"

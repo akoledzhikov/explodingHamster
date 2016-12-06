@@ -32,10 +32,12 @@ import org.hamster.service.UserRelationServiceImpl;
 import org.hamster.service.UserServiceImpl;
 import org.hamster.service.VoteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@Profile("prod")
 public class DataImporterListener
 {
     @Autowired
@@ -52,16 +54,17 @@ public class DataImporterListener
 
     @Autowired
     private ContainterInstanceServiceImpl cis;
-    
+
     @Autowired
     private InstanceServiceImpl is;
-    
+
     @Autowired
     private VoteServiceImpl vs;
 
 
     @PostConstruct
-    public void importData() throws DuplicateVoteException
+    public void importData()
+        throws DuplicateVoteException
     {
         User alex = new UserBuilder().mail("alex@hamster.com")
                                      .credits(30)
@@ -181,7 +184,7 @@ public class DataImporterListener
         cal.add(Calendar.HOUR, 24);
         Date tomorrow = cal.getTime();
         HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("votingTyp", "public");
+        params.put("votingType", "public");
         Instance i1 = new InstanceBuilder().challenger(alex)
                                            .target(stefo)
                                            .containerInstance(ci1)
@@ -190,47 +193,47 @@ public class DataImporterListener
                                            .submittedOn(today)
                                            .parameters(params)
                                            .build();
-        
+
         Instance i2 = new InstanceBuilder().challenger(stefo)
-                        .target(yulia)
-                        .containerInstance(ci2)
-                        .status(ChallengeStatus.VOTING)
-                        .definition(d2)
-                        .submittedOn(today)
-                        .votingStartedOn(today)
-                        .votingEndsOn(tomorrow)
-                        .parameters(params)
-                        .build();
-        
+                                           .target(yulia)
+                                           .containerInstance(ci2)
+                                           .status(ChallengeStatus.VOTING)
+                                           .definition(d2)
+                                           .submittedOn(today)
+                                           .votingStartedOn(today)
+                                           .votingEndsOn(tomorrow)
+                                           .parameters(params)
+                                           .build();
+
         Instance i3 = new InstanceBuilder().challenger(yulia)
-                        .target(irina)
-                        .containerInstance(ci3)
-                        .status(ChallengeStatus.SUCESSFUL)
-                        .definition(d3)
-                        .submittedOn(today)
-                        .votingStartedOn(today)
-                        .votingEndsOn(today)
-                        .completedOn(today)
-                        .parameters(params)
-                        .build();
-        
+                                           .target(irina)
+                                           .containerInstance(ci3)
+                                           .status(ChallengeStatus.SUCESSFUL)
+                                           .definition(d3)
+                                           .submittedOn(today)
+                                           .votingStartedOn(today)
+                                           .votingEndsOn(today)
+                                           .completedOn(today)
+                                           .parameters(params)
+                                           .build();
+
         Instance i4 = new InstanceBuilder().challenger(irina)
-                        .target(alex)
-                        .containerInstance(ci4)
-                        .status(ChallengeStatus.FAILED)
-                        .definition(d3)
-                        .submittedOn(today)
-                        .votingStartedOn(today)
-                        .votingEndsOn(today)
-                        .completedOn(today)
-                        .parameters(params)
-                        .build();
-        
+                                           .target(alex)
+                                           .containerInstance(ci4)
+                                           .status(ChallengeStatus.FAILED)
+                                           .definition(d3)
+                                           .submittedOn(today)
+                                           .votingStartedOn(today)
+                                           .votingEndsOn(today)
+                                           .completedOn(today)
+                                           .parameters(params)
+                                           .build();
+
         is.save(i1);
         is.save(i2);
         is.save(i3);
         is.save(i4);
-        
+
         Vote v1 = new VoteBuilder().challenge(i2).positive(true).user(alex).build();
         Vote v2 = new VoteBuilder().challenge(i3).positive(true).user(alex).build();
         Vote v3 = new VoteBuilder().challenge(i3).positive(true).user(yulia).build();
@@ -238,7 +241,7 @@ public class DataImporterListener
         Vote v5 = new VoteBuilder().challenge(i4).positive(true).user(yulia).build();
         Vote v6 = new VoteBuilder().challenge(i4).positive(false).user(irina).build();
         Vote v7 = new VoteBuilder().challenge(i4).positive(false).user(stefo).build();
-        
+
         vs.save(v1);
         vs.save(v2);
         vs.save(v3);
@@ -246,7 +249,7 @@ public class DataImporterListener
         vs.save(v5);
         vs.save(v6);
         vs.save(v7);
-        
+
         vs.findByChallengeAndUser(i2, alex);
         // content
     }

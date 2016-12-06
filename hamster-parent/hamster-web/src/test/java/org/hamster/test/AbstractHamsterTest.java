@@ -4,6 +4,7 @@ package org.hamster.test;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hamster.container.ChallengeEngine;
 import org.hamster.model.def.Definition;
 import org.hamster.model.def.DefinitionBuilder;
 import org.hamster.model.user.DefinitionAvailability;
@@ -44,6 +45,10 @@ public abstract class AbstractHamsterTest
 
     @Autowired
     protected VoteServiceImpl vs;
+
+    @Autowired
+    protected ChallengeEngine engine;
+
 
     @Before
     public void createNonRuntimeData()
@@ -142,7 +147,7 @@ public abstract class AbstractHamsterTest
                 das.save(da);
             }
         }
-        
+
         System.out.println("Done importing non-runtime data");
     }
 }
