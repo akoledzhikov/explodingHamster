@@ -41,15 +41,20 @@ public class TallyVotesRule
             else
             {
                 int positiveCount = 0;
+                int negativeCount = 0;
                 for (Vote v : votes)
                 {
                     if (v.isPositive())
                     {
                         positiveCount++;
                     }
+                    else
+                    {
+                        negativeCount++;
+                    }
                 }
 
-                if (positiveCount >= votes.size() / 2)
+                if (positiveCount >= negativeCount)
                 {
                     i.setStatus(ChallengeStatus.SUCESSFUL);
                     is.save(i);

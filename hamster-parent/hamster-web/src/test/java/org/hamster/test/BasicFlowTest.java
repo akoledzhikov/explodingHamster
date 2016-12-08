@@ -95,7 +95,9 @@ public class BasicFlowTest
         instance.setVotingEndsOn(new Date());
         is.save(instance);
         votingScheduler.handleVotingEnds();
-
+        instance = is.findOne(instance.getId());
+        assertEquals(ChallengeStatus.SUCESSFUL, instance.getStatus());
+        
         challenger = us.findOne(challenger.getId());
         assertEquals(challengerMonthlyPoints, challenger.getCurrentMonthlyPoints());
         assertEquals(challengerPermanetnPoints + 2 * (def.getPoints() / 10), challenger.getPermanentPoints());
