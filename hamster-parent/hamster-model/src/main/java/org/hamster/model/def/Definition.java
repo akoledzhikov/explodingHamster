@@ -30,6 +30,20 @@ public class Definition
 
     private int cost;
 
+    private int points;
+
+
+    public int getPoints()
+    {
+        return points;
+    }
+
+
+    public void setPoints(int points)
+    {
+        this.points = points;
+    }
+
 
     public long getId()
     {

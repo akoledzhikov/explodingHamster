@@ -26,7 +26,7 @@ public class SingleInstanceContainer
     @Autowired
     @Qualifier("votingTypeRule")
     private Rule votingTypeRule;
-    
+
     @Autowired
     @Qualifier("tallyVotesRule")
     private Rule tallyVotesRule;
@@ -34,6 +34,10 @@ public class SingleInstanceContainer
     @Autowired
     @Qualifier("pointsRule")
     private Rule pointsRule;
+
+    @Autowired
+    @Qualifier("creditRewardRule")
+    private Rule creditRewardRule;
 
 
     public Collection<Rule> getRules(Instance challengeInstance)
@@ -44,6 +48,7 @@ public class SingleInstanceContainer
         result.add(pricingRule);
         result.add(stateChangeRule);
         result.add(tallyVotesRule);
+        result.add(creditRewardRule);
         return result;
     }
 

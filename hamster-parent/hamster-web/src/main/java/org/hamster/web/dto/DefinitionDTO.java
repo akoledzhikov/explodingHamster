@@ -14,6 +14,10 @@ public class DefinitionDTO
 
     private String category;
 
+    private int cost;
+
+    private int points;
+
 
     public DefinitionDTO()
     {
@@ -27,6 +31,8 @@ public class DefinitionDTO
         this.name = def.getName();
         this.category = def.getCategory();
         this.description = def.getDescription();
+        this.cost = def.getCost();
+        this.points = def.getPoints();
     }
 
 

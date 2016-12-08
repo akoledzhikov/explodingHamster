@@ -129,18 +129,21 @@ public class DataImporterListener
                                                .category("Art")
                                                .description("Paint a hamster")
                                                .cost(10)
+                                               .points(100)
                                                .build();
 
         Definition d2 = new DefinitionBuilder().name("Hamster cosplay")
                                                .category("Art")
                                                .description("Dress as a hamster")
                                                .cost(10)
+                                               .points(100)
                                                .build();
 
         Definition d3 = new DefinitionBuilder().name("Hamster song")
                                                .category("Singing")
                                                .description("Sing the intro song to \"Orochuban Ebichu\"")
                                                .cost(10)
+                                               .points(100)
                                                .build();
 
         d1 = ds.save(d1);
