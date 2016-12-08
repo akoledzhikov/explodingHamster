@@ -64,14 +64,13 @@ public class BasicFlowTest
                                                  .submittedOn(today)
                                                  .parameters(params)
                                                  .build();
-        instance = is.save(instance);
+        int challengerCredsBeforePricing = challenger.getCredits();
+        instance = is.createNew(instance);
         int count = ((Collection<Instance>)is.findAll()).size();
         // verify challenge is persisted and is in correct state
         assertEquals(count, 1);
         assertEquals(ChallengeStatus.ACTIVE, instance.getStatus());
 
-        int challengerCredsBeforePricing = challenger.getCredits();
-        engine.handleChallengeEvent(instance.getId(), ChallengeEvent.CREATED);
         int challengerCredsAfterPricing = us.findOne(challenger.getId()).getCredits();
         // verify that credits are taken from the account of the challenger
         assertEquals(challengerCredsBeforePricing - def.getCost(), challengerCredsAfterPricing);
@@ -91,14 +90,11 @@ public class BasicFlowTest
         int voter3PermanentPoints = voter3.getPermanentPoints();
 
         Vote v1 = new VoteBuilder().challenge(instance).positive(true).user(voter1).build();
-        vs.save(v1);
-        engine.handleChallengeEvent(instance.getId(), ChallengeEvent.VOTED_ON);
+        vs.newVote(v1);
         Vote v2 = new VoteBuilder().challenge(instance).positive(true).user(voter2).build();
-        vs.save(v2);
-        engine.handleChallengeEvent(instance.getId(), ChallengeEvent.VOTED_ON);
+        vs.newVote(v2);
         Vote v3 = new VoteBuilder().challenge(instance).positive(false).user(voter3).build();
-        vs.save(v3);
-        engine.handleChallengeEvent(instance.getId(), ChallengeEvent.VOTED_ON);
+        vs.newVote(v3);
 
         // in order to be able to tally votes.
         instance.setVotingEndsOn(new Date());
@@ -112,14 +108,13 @@ public class BasicFlowTest
         target = us.findOne(target.getId());
         assertEquals(targetMonthlyPoints + def.getPoints(), target.getCurrentMonthlyPoints());
         assertEquals(targetPermanetnPoints + def.getPoints(), target.getPermanentPoints());
-        assertEquals(targetCreds + def.getCost() * 2,  target.getCredits());
-        
+        assertEquals(targetCreds + def.getCost() * 2, target.getCredits());
+
         voter2 = us.findOne(voter2.getId());
         assertEquals(voter2PermanentPoints + def.getPoints() / 10, voter2.getPermanentPoints());
         // voter 3 did not vote correctly - does not get points
         voter3 = us.findOne(voter3.getId());
         assertEquals(voter3PermanentPoints, voter3.getPermanentPoints());
-        
-        
+
     }
 }

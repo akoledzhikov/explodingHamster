@@ -4,6 +4,8 @@ package org.hamster.service;
 import java.util.Collection;
 
 import org.hamster.api.exc.DuplicateVoteException;
+import org.hamster.container.ChallengeEngine;
+import org.hamster.container.ChallengeEvent;
 import org.hamster.dao.VoteRepository;
 import org.hamster.model.runtime.Instance;
 import org.hamster.model.runtime.Vote;
@@ -17,6 +19,9 @@ public class VoteServiceImpl
 {
     @Autowired
     private VoteRepository voteRepo;
+
+    @Autowired
+    private ChallengeEngine engine;
 
 
     public Iterable<Vote> findAll()
@@ -49,7 +54,8 @@ public class VoteServiceImpl
     }
 
 
-    public <S extends Vote> S save(S arg0) throws DuplicateVoteException
+    public <S extends Vote> S save(S arg0)
+        throws DuplicateVoteException
     {
         if (voteRepo.findByChallengeAndUser(arg0.getChallenge(), arg0.getUser()) == null)
         {
@@ -59,6 +65,14 @@ public class VoteServiceImpl
         {
             throw new DuplicateVoteException();
         }
+    }
+
+
+    public void newVote(Vote vote)
+        throws DuplicateVoteException
+    {
+        Vote result = save(vote);
+        engine.handleChallengeEvent(vote.getChallenge().getId(), ChallengeEvent.VOTED_ON);
     }
 
 }

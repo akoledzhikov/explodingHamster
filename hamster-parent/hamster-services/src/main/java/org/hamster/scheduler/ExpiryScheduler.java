@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.hamster.container.ChallengeEngine;
-import org.hamster.container.ChallengeEvent;
 import org.hamster.model.runtime.ChallengeStatus;
 import org.hamster.model.runtime.Instance;
 import org.hamster.service.InstanceServiceImpl;
@@ -23,14 +22,15 @@ public class ExpiryScheduler
     @Autowired
     private InstanceServiceImpl is;
 
-    @Scheduled(initialDelay=60000, fixedRate=60000)
+
+    @Scheduled(initialDelay = 60000, fixedRate = 60000)
     public void handleExpiredChallenges()
     {
         Collection<Instance> expired = is.findChallengesForExpiry(new Date());
-        for (Instance i : expired) {
+        for (Instance i : expired)
+        {
             i.setStatus(ChallengeStatus.EXPIRED);
-            is.save(i);
-            engine.handleChallengeEvent(i.getId(), ChallengeEvent.EXPIRED);
+            is.expire(i);
         }
     }
 }

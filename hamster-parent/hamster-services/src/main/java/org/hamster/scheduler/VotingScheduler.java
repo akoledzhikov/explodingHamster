@@ -6,11 +6,8 @@ import java.util.Date;
 
 import org.hamster.container.ChallengeEngine;
 import org.hamster.container.ChallengeEvent;
-import org.hamster.model.runtime.ChallengeStatus;
 import org.hamster.model.runtime.Instance;
-import org.hamster.model.runtime.Vote;
 import org.hamster.service.InstanceServiceImpl;
-import org.hamster.service.VoteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

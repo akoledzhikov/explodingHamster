@@ -4,8 +4,6 @@ package org.hamster.web.rest;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hamster.container.ChallengeEngine;
-import org.hamster.container.ChallengeEvent;
 import org.hamster.model.runtime.Instance;
 import org.hamster.service.InstanceServiceImpl;
 import org.hamster.web.dto.InstanceDTO;
@@ -26,10 +24,6 @@ public class InstanceRestController
 {
     @Autowired
     private InstanceServiceImpl is;
-
-    @Autowired
-    private ChallengeEngine engine;
-
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public ResponseEntity<Iterable<InstanceDTO>> findAll()
@@ -69,17 +63,15 @@ public class InstanceRestController
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity<InstanceDTO> create(@RequestBody InstanceDTO request)
     {
-        is.save(request.toEntity());
-        engine.handleChallengeEvent(request.getId(), ChallengeEvent.CREATED);
+        is.createNew(request.toEntity());
         return new ResponseEntity<InstanceDTO>(request, HttpStatus.OK);
     }
 
-
+    
     @RequestMapping(value = "/reject", method = RequestMethod.POST)
     public ResponseEntity<InstanceDTO> reject(@RequestBody InstanceDTO request)
     {
-        is.save(request.toEntity());
-        engine.handleChallengeEvent(request.getId(), ChallengeEvent.REJECTED);
+        is.reject(request.toEntity());
         return new ResponseEntity<InstanceDTO>(request, HttpStatus.OK);
     }
 }
